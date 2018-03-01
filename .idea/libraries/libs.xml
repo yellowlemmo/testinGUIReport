@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="libs">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/libs/commons-lang-2.5.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/fastjson-1.1.26.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/jdom-2.0.6.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
