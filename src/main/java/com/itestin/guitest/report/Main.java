@@ -14,8 +14,7 @@ public class Main
 {
     public static void main(String[] args)
     {
-        //String testSuitXmlPath = args[0];
-        String testSuitXmlPath = "/Users/cuizhichao/Downloads/TESTS-TestSuites.xml";
+        String testSuitXmlPath = args[0];
         AnalyzeGuiReport guiReport = new AnalyzeGuiReport(testSuitXmlPath);
         String output = contextToSend(guiReport);
         OhMyEmail.config(getDefaultProperties(), "itestinpro@testin.cn", "testin.cn123");
