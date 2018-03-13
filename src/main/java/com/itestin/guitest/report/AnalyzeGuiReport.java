@@ -20,34 +20,37 @@ public class AnalyzeGuiReport
     private int failures;
     private int errors;
     private int skipped;
+    private int tests;
     private float time;
     public AnalyzeGuiReport(File[] x) {
-        for (int i = 0; i < x.length; i++){
+        for (int i = 0; i < x.length; i++) {
             String xmlPath = x[i].getAbsolutePath();
-            Element rootElement = XmlUtil.getRootElement(XmlUtil.readXML(xmlPath));
-        if (this.guiTestSuiteDataModelList == null) {
-            this.guiTestSuiteDataModelList = new ArrayList();
-        }
-            tmpModel = new GuiTestSuiteDataModel();
-            failures+=Integer.parseInt(rootElement.getAttributes().getNamedItem("failures")
-                    .getNodeValue());
-            tmpModel.setFailures(failures);
-            errors+=Integer.parseInt(rootElement.getAttributes().getNamedItem("errors").getNodeValue());
-            tmpModel.setErrors(errors);
-            tmpModel.setName(rootElement.getAttributes().getNamedItem("name").getNodeValue());
-            skipped+=Integer.parseInt(rootElement.getAttributes().getNamedItem("skipped").getNodeValue());
-            tmpModel.setSkipped(skipped);
-            tmpModel.setTests(x.length);
-            time+=Float.valueOf(rootElement.getAttributes().getNamedItem("time").getNodeValue());
-            tmpModel.setTime(String.valueOf(time));
-            tmpModel.setTimestamp(rootElement.getAttributes().getNamedItem("timestamp").getNodeValue());
-            tmpModel.setPass((int) (tmpModel.getTests()-failures-skipped-errors));
-            if(this.guiTestCaseDataModelList==null) {
-                guiTestCaseDataModelList = new ArrayList();
-            }
-            NodeList testcaseNodeList = rootElement.getElementsByTagName("testcase");
+            if (xmlPath.endsWith("Start.xml")) {
+                Element rootElement = XmlUtil.getRootElement(XmlUtil.readXML(xmlPath));
+                if (this.guiTestSuiteDataModelList == null) {
+                    this.guiTestSuiteDataModelList = new ArrayList();
+                }
+                tmpModel = new GuiTestSuiteDataModel();
+                failures += Integer.parseInt(rootElement.getAttributes().getNamedItem("failures")
+                        .getNodeValue());
+                tmpModel.setFailures(failures);
+                errors += Integer.parseInt(rootElement.getAttributes().getNamedItem("errors").getNodeValue());
+                tmpModel.setErrors(errors);
+                tmpModel.setName(rootElement.getAttributes().getNamedItem("name").getNodeValue());
+                skipped += Integer.parseInt(rootElement.getAttributes().getNamedItem("skipped").getNodeValue());
+                tmpModel.setSkipped(skipped);
+                tests+=Integer.parseInt(rootElement.getAttributes().getNamedItem("tests").getNodeValue());
+                tmpModel.setTests(tests);
+                time += Float.valueOf(rootElement.getAttributes().getNamedItem("time").getNodeValue());
+                tmpModel.setTime(String.valueOf(time));
+                tmpModel.setTimestamp(rootElement.getAttributes().getNamedItem("timestamp").getNodeValue());
+                tmpModel.setPass((int) (tmpModel.getTests() - failures - skipped - errors));
+                if (this.guiTestCaseDataModelList == null) {
+                    guiTestCaseDataModelList = new ArrayList();
+                }
+                NodeList testcaseNodeList = rootElement.getElementsByTagName("testcase");
                 Element testCaseNode = (Element) testcaseNodeList.item(0);
-                testCaseDataModel= new GuiTestCaseDataModel();
+                testCaseDataModel = new GuiTestCaseDataModel();
                 if (testCaseNode.getAttributes().getNamedItem("name").getNodeValue() != null) {
                     testCaseDataModel.setName(testCaseNode.getAttributes().getNamedItem("name").getNodeValue());
                 } else {
@@ -88,12 +91,12 @@ public class AnalyzeGuiReport
                     testCaseDataModel.setResult("成功");
                 }
                 guiTestCaseDataModelList.add(testCaseDataModel);
-    }
+            }
+        }
         this.guiTestSuiteDataModelList.add(tmpModel);
         ((GuiTestSuiteDataModel) this.guiTestSuiteDataModelList.get(0)).setGuiTestCaseDataModelList(guiTestCaseDataModelList);
-        System.err.println("hello");
-    }
-
+            System.err.println("hello");
+        }
     public List<GuiTestSuiteDataModel> getGuiTestSuiteDataModelList()
     {
         return this.guiTestSuiteDataModelList;
