@@ -6,6 +6,8 @@ import io.github.biezhi.ome.OhMyEmail;
 import jetbrick.template.JetEngine;
 import jetbrick.template.JetTemplate;
 
+
+import java.io.File;
 import java.io.StringWriter;
 import java.util.Map;
 import java.util.Properties;
@@ -14,9 +16,12 @@ public class Main
 {
     public static void main(String[] args)
     {
-        String testSuitXmlPath = args[0];
-        AnalyzeGuiReport guiReport = new AnalyzeGuiReport(testSuitXmlPath);
+        String filePath = args[0];
+        File file = new File(filePath);
+        File[] xmlFiles = file.listFiles();
+        AnalyzeGuiReport guiReport = new AnalyzeGuiReport(xmlFiles);
         String output = contextToSend(guiReport);
+
         OhMyEmail.config(getDefaultProperties(), "itestinpro@testin.cn", "testin.cn123");
         try
         {
