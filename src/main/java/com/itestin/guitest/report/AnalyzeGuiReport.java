@@ -73,6 +73,7 @@ public class AnalyzeGuiReport
                     testCaseDataModel.setCasedesc("null");
                 }
                 Element errorNode = (Element) testCaseNode.getElementsByTagName("error").item(0);
+                Element failuresNode = (Element) testCaseNode.getElementsByTagName("failure").item(0);
                 if (errorNode != null) {
                     if (errorNode.getAttributes().getNamedItem("type") != null) {
                         testCaseDataModel.setErrorType(errorNode.getAttributes().getNamedItem("type").getNodeValue());
@@ -84,8 +85,21 @@ public class AnalyzeGuiReport
                     } else {
                         testCaseDataModel.setErrorMessage("未知错误");
                     }
-                    testCaseDataModel.setResult("失败");
-                } else {
+                    testCaseDataModel.setResult("错误");
+                }
+                  else if(failuresNode!=null){
+                    if(failuresNode.getAttributes().getNamedItem("type")!=null){
+                        testCaseDataModel.setErrorType(failuresNode.getAttributes().getNamedItem("type").getNodeValue());
+                    }else {
+                        testCaseDataModel.setErrorType("null");
+                    }if(failuresNode.getAttributes().getNamedItem("message")!=null){
+                        testCaseDataModel.setErrorMessage(errorNode.getAttributes().getNamedItem("message").getNodeValue());
+                      }else {
+                        testCaseDataModel.setErrorMessage("未知");
+                      }
+                      testCaseDataModel.setResult("失败");
+                  }
+                else {
                     testCaseDataModel.setErrorType("用例执行成功");
                     testCaseDataModel.setErrorMessage("");
                     testCaseDataModel.setResult("成功");
