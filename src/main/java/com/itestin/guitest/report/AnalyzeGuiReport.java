@@ -93,7 +93,7 @@ public class AnalyzeGuiReport
                     }else {
                         testCaseDataModel.setErrorType("null");
                     }if(failuresNode.getAttributes().getNamedItem("message")!=null){
-                        testCaseDataModel.setErrorMessage(errorNode.getAttributes().getNamedItem("message").getNodeValue());
+                        testCaseDataModel.setErrorMessage(failuresNode.getAttributes().getNamedItem("message").getNodeValue());
                       }else {
                         testCaseDataModel.setErrorMessage("未知");
                       }
