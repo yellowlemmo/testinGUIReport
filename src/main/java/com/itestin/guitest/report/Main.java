@@ -16,7 +16,7 @@ public class Main
 {
     public static void main(String[] args)
     {
-        String filePath = "/Users/cuizhichao/Desktop/caseReport";
+        String filePath = args[0];
         File file = new File(filePath);
         File[] xmlFiles = file.listFiles();
         AnalyzeGuiReport guiReport = new AnalyzeGuiReport(xmlFiles);
